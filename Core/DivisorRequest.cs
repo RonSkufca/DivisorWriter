@@ -1,7 +1,7 @@
-namespace DivisorWriterCore;
+namespace DivisorWriter.Core;
 
 public record DivisorRequest
 {
-    int DividendUpperBound { get; set; }
-    Dictionary<int, string> DivisorsWithMessages { get; set; }
+    public int DividendUpperBound { get; set; }
+    public Dictionary<int, string> DivisorsWithMessages { get; set; }
 }

@@ -1,6 +1,8 @@
+using DivisorWriter.Core;
+
 namespace DivisorWriter.Service;
 
 public interface IWriter
 {
-    void Write();
+    void Write(DivisorRequest request);
 }
