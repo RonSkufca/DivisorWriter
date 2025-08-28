@@ -7,11 +7,11 @@ namespace DivisorWriter.IntegrationTests;
 public class ConsoleWriterTests
 {
     private readonly IWriter _writer;
-    private readonly IRemainderCalculator _remainderCalculator = new RemainderCalculator();
+    private readonly IDivisibleChecker _divisibleChecker = new DivisibleChecker();
 
     public ConsoleWriterTests()
     {
-        _writer = new Writer(_remainderCalculator);
+        _writer = new Writer(_divisibleChecker);
     }
     
     [Fact]

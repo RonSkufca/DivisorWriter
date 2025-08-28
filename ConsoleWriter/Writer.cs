@@ -3,9 +3,9 @@ using DivisorWriter.Service;
 
 namespace DivisorWriter.ConsoleWriter;
 
-public class Writer(IRemainderCalculator remainderCalculator) : IWriter
+public class Writer(IDivisibleChecker divisibleChecker) : IWriter
 {
-    private readonly IRemainderCalculator _remainderCalculator = remainderCalculator;
+    private readonly IDivisibleChecker _divisibleChecker = divisibleChecker;
     private const int DividendUpperBoundDefault = 10;
     private static readonly Dictionary<int, string> DivisorsWithMessagesDefault = new Dictionary<int, string>()
     {
