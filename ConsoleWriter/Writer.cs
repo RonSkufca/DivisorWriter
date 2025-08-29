@@ -12,7 +12,7 @@ public class Writer(IDivisibleChecker divisibleChecker) : IWriter
         {5, "Jeffery"}   
     };
 
-    public DivisiorResponse Write(DivisorRequest request)
+    public WriterResponse Write(WriterRequest request)
     {
         if (request == null)
         {
@@ -23,8 +23,9 @@ public class Writer(IDivisibleChecker divisibleChecker) : IWriter
         
         var upperBound = GetUpperBoundOrDefault(request.DividendUpperBound);
         
-        var response = new DivisiorResponse();
+        var response = new WriterResponse();
         
+        // Nested loops are O(n^2) which is not ideal, but it's a simple example
         for (int index = 1; index <= upperBound; index++)
         {
             foreach (var divisor in divisorsWithMessages)
@@ -45,7 +46,7 @@ public class Writer(IDivisibleChecker divisibleChecker) : IWriter
         return response;
     }
 
-    private static Dictionary<int, string> GetDivisorsWithMessagesOrDefault(DivisorRequest request)
+    private static Dictionary<int, string> GetDivisorsWithMessagesOrDefault(WriterRequest request)
     {
         if (request.DivisorsWithMessages == null)
         {

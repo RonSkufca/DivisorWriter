@@ -19,7 +19,7 @@ public class ConsoleWriterTests
     public void ConsoleWriter_HappyPath()
     {
         // Arrange
-        var request = new DivisorRequest
+        var request = new WriterRequest
         {
             DividendUpperBound = 10,
             DivisorsWithMessages = new Dictionary<int, string>()
@@ -49,11 +49,53 @@ public class ConsoleWriterTests
         numberOfTimesJefferyAppears.ShouldBe(2);
     }
     
+    /// <summary>
+    /// CAUTION: This test takes a long time to run. 
+    /// It's only here to demonstrate how the code scales to large numbers.
+    /// And to test the upperbound functionality.
+    /// </summary>
+    [Fact]
+    public void ConsoleWriter_TestScalingToLargeNumbers()
+    {
+        // Arrange
+        var request = new WriterRequest
+        {
+            DividendUpperBound = 10000000,
+            DivisorsWithMessages = new Dictionary<int, string>()
+            {
+                {3, "Ron"},
+                {5, "Jeffery"},
+                {6, "Joe"}
+            }
+        };
+
+        // Our total messages should be 30000000
+        // UpperBound = 10000000 
+        // DivisorsWithMessages = 3
+        // UpperBound * DivisorsWithMessages = 30000000
+        
+        // Act
+        var response = _writer.Write(request);
+
+        // Assert
+        response.ShouldNotBeNull();
+        response.Messages.Count.ShouldBe(30000000);
+        
+        var numberOfTimesRonAppears = response.Messages.Count(m =>  m == "Ron");
+        numberOfTimesRonAppears.ShouldBe(3333333);
+        
+        var numberOfTimesJefferyAppears = response.Messages.Count(m => m == "Jeffery");
+        numberOfTimesJefferyAppears.ShouldBe(2000000);
+        
+        var numberOfTimesJoeAppears = response.Messages.Count(m => m == "Joe");
+        numberOfTimesJoeAppears.ShouldBe(1666666);
+    }
+    
     [Fact]
     public void ConsoleWriter_ThrowsException_WhenDivisorRequestIsNull()
     {
         // Arrange
-        DivisorRequest request = null;
+        WriterRequest request = null;
         
         // Act
         Assert.Throws<ArgumentNullException>(() => _writer.Write(request));
@@ -63,7 +105,7 @@ public class ConsoleWriterTests
     [Fact]
     public void ConsoleWriter_WhenDividendUpperBoundOmitted_ReturnsDefaultNumberOfLines()
     {
-        var request = new DivisorRequest
+        var request = new WriterRequest
         {
             DividendUpperBound = 0,
             DivisorsWithMessages = new Dictionary<int, string>()
@@ -91,7 +133,7 @@ public class ConsoleWriterTests
     [Fact]
     public void ConsoleWriter_WhenDivisorsWithMessagesOmitted_ReturnsDefaultDivisorsWithMessages()
     {
-        var request = new DivisorRequest
+        var request = new WriterRequest
         {
             DividendUpperBound = 10
         };
