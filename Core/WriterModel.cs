@@ -1,6 +1,6 @@
 ﻿namespace DivisorWriter.Core;
 
-public record DivisorModel
+public record WriterModel
 {
     int Divisor { get; set; }
     string Message { get; set; }
