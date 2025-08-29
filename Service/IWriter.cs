@@ -4,5 +4,5 @@ namespace DivisorWriter.Service;
 
 public interface IWriter
 {
-    void Write(DivisorRequest request);
+    DivisiorResponse Write(DivisorRequest request);
 }

@@ -23,4 +23,18 @@ public class DivisibleCheckerTests
         
         result.ShouldBeFalse();
     }
+    
+    [Fact]
+    public void IsDivisible_ReturnsTrueWhenDividendIsZero()
+    {
+        var result = _divisibleChecker.IsDivisible(0, 4);
+        
+        result.ShouldBeTrue();
+    }
+    
+    [Fact]
+    public void IsDivisible_ThrowsExceptionWhenDivisorIsZero()
+    {
+        Assert.Throws<DivideByZeroException>(() => _divisibleChecker.IsDivisible(4, 0));
+    }
 }
